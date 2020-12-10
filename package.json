@@ -1,0 +1,14 @@
+{
+  "name": "vincepi-frontend",
+  "version": "1.0.0",
+  "description": "VincePi",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js"
+  },
+  "author": "Vince Richter WMS 2020",
+  "license": "MIT",
+  "dependencies": {
+    "node-hid-stream": "^1.1.0"
+  }
+}
