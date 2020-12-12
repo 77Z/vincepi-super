@@ -1,5 +1,6 @@
 var Hidstream = require('node-hid-stream').Hidstream;
 var hidstream = new Hidstream({ vendorId: 121, productId: 6 });
+const child_process = require("child_process");
 
 var superPressed = false;
 
@@ -22,6 +23,10 @@ function superButton() {
     clearInterval(loop);
 
     console.log("Launching Dashboard...");
-
-    process.exit(0);
+    child_process.exec("npm start", (error, stdout, stderr) => {
+        if (error) throw error;
+        if (stderr) throw stderr;
+        console.log(stdout);
+        process.exit(0);
+    });
 }

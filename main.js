@@ -9,7 +9,10 @@ function createWindow() {
         frame: false,
         minimizable: false,
         backgroundColor: "#222",
-        darkTheme: true
+        darkTheme: true,
+        webPreferences: {
+            nodeIntegration: true
+        }
     });
 
     mainWindow.loadURL(`file://${__dirname}/dom/index.html`);

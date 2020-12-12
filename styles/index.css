@@ -31,7 +31,7 @@ body {
     margin-left: 20px;
     position: relative;
     border-radius: 5px;
-    transition: transform 0.3 ease-out;
+    transition: transform 0.3s ease-out;
 }
 
 .button img {
@@ -73,6 +73,11 @@ body {
     height: 20px;
     background: #111;
     left: calc(50% - 150px);
+    display: none;
+}
+
+.snackbar-show {
+    display: block;
 }
 
 .licences-button {
@@ -114,4 +119,169 @@ body {
 
 .displayFlex {
     display: flex;
+}
+
+
+.navigation {
+    position: fixed;
+    bottom: 100px;
+    left: 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.navigation div img {
+    border-radius: 5px;
+    transform: translateY(30px);
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.navigation div span {
+    height: 100%;
+    text-align: center;
+}
+
+
+
+
+
+/* 
+    LICENCES AREA
+*/
+
+.licences-tab {
+    position: fixed;
+    top: 40px;
+    left: 40px;
+    width: calc(49.5% - 40px);
+    height: calc(100% - 80px);
+    display: none;
+    background: #111;
+    box-sizing: border-box;
+    padding: 20px;
+    border-radius: 10px 0px 0px 10px;
+}
+
+.licence-display {
+    position: fixed;
+    top: 40px;
+    right: 40px;
+    width: calc(49.5% - 40px);
+    height: calc(100% - 80px);
+    background: #111;
+    box-sizing: border-box;
+    padding: 20px;
+    font-family: consolas;
+    border-radius: 0px 10px 10px 0px;
+}
+
+.licence-display h1 {
+    text-align: center;
+}
+
+.licences-tab-back {
+    backdrop-filter: blur(4px);
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+}
+
+#licence-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#licence-list li {
+    margin-bottom: 10px;
+    background: #02049c;
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    box-shadow: 0px 5px 0px #00016e;
+}
+
+.selected-licence {
+    background: #0003cc !important;
+}
+
+/* 
+    POWER AREA
+*/
+
+.power-tab {
+    position: fixed;
+    top: calc(50% - 80px);
+    left: calc(50% - 250px);
+    width: 500px;
+    height: 160px;
+    display: none;
+    background: #111;
+    border-radius: 10px;
+}
+
+.power-button {
+    width: 160px;
+    height: 160px;
+    background: #1f1f1f;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+}
+
+.power-button-left   {
+    border-radius: 10px 0px 0px 10px;
+}
+.power-button-middle {
+    border-radius: 0px;
+    left: 170px;
+}
+.power-button-right  {
+    border-radius: 0px 10px 10px 0px;
+    right: 0;
+}
+
+.power-button .power-button-text {
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    width: 100%;
+    display: block;
+    text-align: center;
+}
+
+.power-button img {
+    position: absolute;
+    top: 30px;
+    left: calc(50% - 25px);
+}
+
+.power-button-selected {
+    background: #707070;
+}
+
+
+.toast {
+    position: fixed;
+    bottom: -65px;
+    left: 10px;
+    width: 500px;
+    height: 60px;
+    background-color: #313131;
+    box-shadow: 0px 0px 5px #000;
+    font-family: consolas;
+    transition: 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.toast-show {
+    bottom: 10px;
 }

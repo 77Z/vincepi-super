@@ -13,15 +13,15 @@
     <span class="title">VPI<span class="gray">Ver. 1.0</span></span>
 
     <div class="button-containers">
-        <div class="button">
+        <div class="button" id="settings-button">
             <img src="../img/settings.png" height="150" width="150">
             <span class="button-text">Settings</span>
         </div>
-        <div class="button button-selected">
+        <div class="button button-selected" id="library-button">
             <img src="../img/library.png" height="150" width="150">
             <span class="button-text">Library</span>
         </div>
-        <div class="button">
+        <div class="button" id="power-options-button">
             <img src="../img/power.png" height="150" width="150">
             <span class="button-text">Power</span>
         </div>
@@ -30,9 +30,52 @@
     <img src="../img/licence.png" id="licence-btn" class="licences-button" width="80" height="80">
     <div class="licences-button-selected-tip" id="licence-tip">Licences</div>
 
-    <!-- <div class="snackbar snackbar-show" id="snackbar">
+    <div class="navigation">
+        <div>
+            <img src="../img/move.png" width="70" height="70">
+            <span>Move</span>
+        </div>
+        <div>
+            <img src="../img/select.png" width="70" height="70">
+            <span>Select</span>
+        </div>
+        <div>
+            <img src="../img/back.png" width="70" height="70">
+            <span>Back</span>
+        </div>
+        
+    </div>
+
+    <div class="licences-tab-back" id="back-blur"></div>
+    <div class="licences-tab" id="licences-tab">
+        <ul id="licence-list"></ul>
+        <div class="licence-display" id="licence-display">
+            <h1>
+                Move the Joystick to load licence content
+            </h1>
+        </div>
+    </div>
+
+    <div class="power-tab" id="power-tab">
+        <div class="power-button power-button-left power-button-selected" id="power-button-shutdown">
+            <img src="../img/power.png" width="50" height="50">
+            <span class="power-button-text">Shutdown</span>
+        </div>
+        <div class="power-button power-button-middle" id="power-button-reboot">
+            <img src="../img/reboot.svg" width="50" height="50">
+            <span class="power-button-text">Reboot</span>
+        </div>
+        <div class="power-button power-button-right" id="power-button-update">
+            <img src="../img/update.svg" width="50" height="50">
+            <span class="power-button-text">Update</span>
+        </div>
+    </div>
+
+    <div class="snackbar snackbar-show" id="snackbar">
         Joystick not connected :(
-    </div> -->
+    </div>
+
+    <div class="toast" id="toast"></div>
     <script src="../js/index.js"></script>
 </body>
 </html>
