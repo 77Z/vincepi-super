@@ -285,3 +285,20 @@ body {
 .toast-show {
     bottom: 10px;
 }
+
+/*
+Library Tab
+*/
+
+.library-tab {
+    position: fixed;
+    top: 40px;
+    left: 40px;
+    width: calc(100% - 80px);
+    height: calc(100% - 80px);
+    display: none;
+    background: #111;
+    box-sizing: border-box;
+    padding: 20px;
+    border-radius: 10px 0px 0px 10px;
+}

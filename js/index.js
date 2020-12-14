@@ -138,6 +138,7 @@ function toast(message) {
 function backButton() {
     document.getElementById("licences-tab").style.display = "none";
     document.getElementById("power-tab").style.display    = "none";
+    document.getElementById("library-tab").style.display  = "none";
     document.getElementById("back-blur").style.display    = "none";
     currentScreen = "main";
 }
@@ -174,6 +175,13 @@ function clickEvent() {
             document.getElementById("power-tab").style.display = "block";
             document.getElementById("back-blur").style.display = "block";
             currentScreen = "power";
+        } else if (row === 0 && col == 1) {
+            //Show Library
+            document.getElementById("library-tab").style.display = "block";
+            document.getElementById("back-blur").style.display = "block";
+            currentScreen = "library";
+        } else if (row === 0 && col == 0) {
+            //Show Settings
         }
     } else if (currentScreen == "power") {
         if (powerCol == 2) {
