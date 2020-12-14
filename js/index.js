@@ -119,7 +119,7 @@ function frame() {
     window.requestAnimationFrame(frame);
 }
 /* 
-    Possible Values: `main`, `licence`, `power`
+    Possible Values: `main`, `licence`, `power`, `library`
 */
 var currentScreen = "main";
 
