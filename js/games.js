@@ -18,5 +18,15 @@ module.exports = [
         "name": "Celeste",
         "launchCommand": "",
         "bannerLocation": ""
+    },
+    {
+        "name": "The Ultimate DOOM",
+        "launchCommand": "",
+        "bannerLocation": ""
+    },
+    {
+        "name": "Minecraft",
+        "launchCommand": "",
+        "bannerLocation": ""
     }
 ];

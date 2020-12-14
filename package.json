@@ -9,7 +9,6 @@
   "author": "Vince Richter WMS 2020",
   "license": "MIT",
   "dependencies": {
-    "electron": "^11.0.4",
-    "node-hid-stream": "^1.1.0"
+    "electron": "^11.0.4"
   }
 }
