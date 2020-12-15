@@ -48,6 +48,19 @@ window.onload = function() {
         document.getElementById("snackbar").classList.add("snackbar-show");
         window.cancelAnimationFrame(frame);
     });
+
+    var config = require("../config");
+    readTextFile(config.gist + "?preventcache=" + Math.random().toString().split(".")[1], (rawData) => {
+        var data = JSON.parse(rawData);
+        if (data.notes.show == true) {
+            //console.log("show note " + data.notes.message);
+            document.getElementById("internet-note").style.display = "block";
+            document.getElementById("internet-note").innerText = data.notes.message;
+        }
+        if (data.latestVersion !== config.currentVersion) {
+            toast("A new update is avaliable!");
+        }
+    })
 }
 
 var canMoveHorizontal = true;
@@ -320,4 +333,16 @@ function updateSystem() {
         backButton();
         toast("You need internet to update!");
     }
+}
+
+function readTextFile(file, callback) {
+    var rawFile = new XMLHttpRequest();
+    rawFile.overrideMimeType("application/json");
+    rawFile.open("GET", file, true);
+    rawFile.onreadystatechange = function() {
+        if (rawFile.readyState === 4 && rawFile.status == "200") {
+            callback(rawFile.responseText);
+        }
+    }
+    rawFile.send(null);
 }

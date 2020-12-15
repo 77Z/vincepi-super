@@ -2,7 +2,7 @@ body {
     background: #222;
     color: #fff;
     font-family: "Montserrat", sans-serif;
-    cursor: none;
+    /* cursor: none; */
     user-select: none;
 }
 
@@ -130,6 +130,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    z-index: 1000;
 }
 
 .navigation div img {
@@ -300,5 +301,86 @@ Library Tab
     background: #111;
     box-sizing: border-box;
     padding: 20px;
+    border-radius: 10px;
+}
+
+.library-tab .library-sidebar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 30%;
+    background: #0a0a0a;
     border-radius: 10px 0px 0px 10px;
+}
+
+.library-tab .library-sidebar .library-sidebar-header {
+    box-sizing: border-box;
+    padding: 30px;
+    font-family: "Montserrat Light";
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.library-tab .library-sidebar .library-sidebar-header h1 {
+    margin: 0;
+    display: inline;
+    margin-left: 40px;
+}
+
+.library-tab .library-content {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 70%;
+    background: transparent;
+    border-radius: 0px 10px 10px 0px;
+    box-sizing: border-box;
+    padding: 20px;
+}
+
+.library-game {
+    display: inline-block;
+    width: 350px;
+    height: 175px;
+
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+/* Game Art */
+
+.library-game-pacman    { background-image: url("../img/gamecovers/pacman.png"); }
+.library-game-smb       { background-image: url("../img/gamecovers/smb.png"); }
+.library-game-celeste   { background-image: url("../img/gamecovers/celeste.png"); }
+.library-game-doom      { background-image: url("../img/gamecovers/doom.png"); }
+.library-game-minecraft { background-image: url("../img/gamecovers/minecraft.png"); }
+
+/* -------- */
+
+#internet-note {
+    position: fixed;
+    top: 85px;
+    left: 70px;
+    font-size: 17px;
+    color: #fff;
+    display: none;
+}
+
+#internet-note::before {
+    content: '!';
+    position: fixed;
+    top: 85px;
+    left: 50px;
+    width: 17px;
+    height: 17px;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 1000px;
+    color: #000;
 }

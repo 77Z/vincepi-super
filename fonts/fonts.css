@@ -3,3 +3,9 @@
     font-weight: normal;
     src: url("Montserrat-SemiBold.ttf");
 }
+
+@font-face {
+    font-family: "Montserrat Light";
+    font-weight: normal;
+    src: url("Montserrat-Light.ttf");
+}
