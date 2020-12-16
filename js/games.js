@@ -1,32 +1,32 @@
 module.exports = [
-    {
+/*     {
         "name": "LJ65 (Tetris)",
         "launchCommand": "",
-        "bannerLocation": ""
-    },
+        "bannerClass": "library-game-lj65"
+    }, */
     {
         "name": "Pacman",
         "launchCommand": "",
-        "bannerLocation": ""
+        "bannerClass": "library-game-pacman"
     },
     {
         "name": "Super Mario Bros",
         "launchCommand": "",
-        "bannerLocation": ""
+        "bannerClass": "library-game-smb"
     },
     {
         "name": "Celeste",
         "launchCommand": "",
-        "bannerLocation": ""
+        "bannerClass": "library-game-celeste"
     },
     {
         "name": "The Ultimate DOOM",
         "launchCommand": "",
-        "bannerLocation": ""
+        "bannerClass": "library-game-doom"
     },
     {
         "name": "Minecraft",
         "launchCommand": "",
-        "bannerLocation": ""
+        "bannerClass": "library-game-minecraft"
     }
 ];

@@ -1,3 +1,5 @@
+const ipcRenderer = require("electron").ipcRenderer;
+
 var row = 0;
 var col = 1;
 
@@ -5,8 +7,12 @@ var powerCol = 0;
 
 var licenceRow = 0;
 
+var selectedGameIndex = 0;
+
 var licencesInitialized = false;
 var globalLicences = [];
+
+var libraryInitialized = false;
 
 var licence = {
     hoverButton: function() {
@@ -50,17 +56,23 @@ window.onload = function() {
     });
 
     var config = require("../config");
-    readTextFile(config.gist + "?preventcache=" + Math.random().toString().split(".")[1], (rawData) => {
-        var data = JSON.parse(rawData);
-        if (data.notes.show == true) {
-            //console.log("show note " + data.notes.message);
-            document.getElementById("internet-note").style.display = "block";
-            document.getElementById("internet-note").innerText = data.notes.message;
-        }
-        if (data.latestVersion !== config.currentVersion) {
-            toast("A new update is avaliable!");
-        }
-    })
+    if (navigator.onLine) {
+        readTextFile(config.gist + "?preventcache=" + Math.random().toString().split(".")[1], (rawData) => {
+            var data = JSON.parse(rawData);
+            if (data.notes.show == true) {
+                //console.log("show note " + data.notes.message);
+                document.getElementById("internet-note").style.display = "block";
+                document.getElementById("internet-note").innerText = data.notes.message;
+            }
+            if (data.latestVersion !== config.currentVersion) {
+                toast("A new update is avaliable!");
+            }
+        })
+    } else {
+        document.getElementById("internet-note").style.display = "block";
+                document.getElementById("internet-note").innerText = "No Internet :/";
+    }
+    
 }
 
 var canMoveHorizontal = true;
@@ -68,10 +80,11 @@ var canMoveVertical   = true;
 var canClick          = true;
 var canBack           = true;
 var canSuper          = true;
+var hasControl        = true;
 
 function frame() {
 
-    if (document.hasFocus()) {
+    if (document.hasFocus() && hasControl) {
         var gamepad = navigator.getGamepads()[0];
 
         if (gamepad.axes[0] !== 1 && gamepad.axes[0] !== -1) {
@@ -157,6 +170,7 @@ function backButton() {
 }
 
 var licenceAmount = 0;
+var gameAmount    = 0;
 
 function clickEvent() {
     if (currentScreen == "main") {
@@ -167,7 +181,7 @@ function clickEvent() {
 
             if(!licencesInitialized) {
                 licencesInitialized = true;
-                console.log("Loading Licences");
+                //console.log("Loading Licences");
 
                 var licences = require("../js/licences");
                 globalLicences = licences;
@@ -190,17 +204,52 @@ function clickEvent() {
             currentScreen = "power";
         } else if (row === 0 && col == 1) {
             //Show Library
+
+            //Load Games
+
+            if(!libraryInitialized) {
+                libraryInitialized = true;
+                //console.log("Loading Licences");
+
+                var games = require("../js/games");
+                for (var i = 0; i < games.length; i++) {
+                    var gameCard = document.createElement("div");
+                    gameCard.classList.add("library-game");
+                    gameCard.classList.add(games[i].bannerClass);
+                    if (i === 0) { gameCard.classList.add("selected-game"); }
+                    gameCard.id = "game" + i;
+                    gameCard.dataset.prettyName = games[i].name;
+                    document.getElementById("library-content").appendChild(gameCard);
+
+                    if (i > gameAmount) { gameAmount = i; }
+                }
+            }
+
             document.getElementById("library-tab").style.display = "block";
             document.getElementById("back-blur").style.display = "block";
             currentScreen = "library";
+            updatePos();
         } else if (row === 0 && col == 0) {
             //Show Settings
         }
     } else if (currentScreen == "power") {
-        if (powerCol == 2) {
+        
+        switch(powerCol) {
+            case 0:
+                shutdownSystem();
+                break;
+            case 1:
+                restartSystem();
+                break;
+            case 2:
+                updateSystem();
+                break;
+        }
+
+        /* if (powerCol == 2) {
             //Check for update
             updateSystem();
-        }
+        } */
     }
 }
 
@@ -243,6 +292,11 @@ function moveRight() {
             powerCol++;
         }
         updatePos();
+    } else if (currentScreen == "library") {
+        if (selectedGameIndex !== gameAmount) {
+            selectedGameIndex++;
+        }
+        updatePos();
     }
 }
 
@@ -256,6 +310,11 @@ function moveLeft() {
     } else if (currentScreen == "power") {
         if (powerCol !== 0) {
             powerCol--;
+        }
+        updatePos();
+    } else if (currentScreen == "library") {
+        if (selectedGameIndex !== 0) {
+            selectedGameIndex--;
         }
         updatePos();
     }
@@ -316,11 +375,17 @@ function updatePos() {
             document.getElementById("power-button-update").classList.add("power-button-selected");
         }
     } else if (currentScreen == "licence") {
-        for (var i = 0; i < licenceAmount; i++) {
+        for (var i = 0; i < licenceAmount + 1; i++) {
             document.getElementById("licence" + i).classList.remove("selected-licence");
         }
         document.getElementById("licence" + licenceRow).classList.add("selected-licence");
         document.getElementById("licence-display").innerHTML = `<h1>${globalLicences[licenceRow].productTitle} By ${globalLicences[licenceRow].publisher}<br>${globalLicences[licenceRow].licenceType}</h1><br><br>${globalLicences[licenceRow].licence}`;
+    } else if (currentScreen == "library") {
+        for (var i = 0; i < gameAmount + 1; i++) {
+            document.getElementById("game" + i).classList.remove("selected-game");
+        }
+        document.getElementById("game" + selectedGameIndex).classList.add("selected-game");
+        document.getElementById("selected-game-title").innerText = document.getElementById("game" + selectedGameIndex).dataset.prettyName;
     }
 }
 
@@ -333,6 +398,36 @@ function updateSystem() {
         backButton();
         toast("You need internet to update!");
     }
+}
+
+function shutdownSystem() {
+    fadeScreen();
+    noControl();
+    backButton();
+    ipcRenderer.send("system.shutdown");
+}
+
+function restartSystem() {
+    fadeScreen();
+    noControl();
+    backButton();
+    ipcRenderer.send("system.restart");
+}
+/*
+    Fade the screen to black over the course of 3 seconds
+*/
+function fadeScreen() {
+    document.getElementById("fade").style.display = "block";
+    setTimeout(function() {
+        document.getElementById("fade").style.opacity = "1";
+    }, 10);
+}
+
+/*
+    Cuts off all user input
+*/
+function noControl() {
+    hasControl = false;
 }
 
 function readTextFile(file, callback) {

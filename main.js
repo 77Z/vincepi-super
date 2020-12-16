@@ -1,4 +1,5 @@
-const {app, BrowserWindow} = require("electron");
+const {app, BrowserWindow, ipcMain, dialog} = require("electron");
+const child_process = require("child_process");
 
 let mainWindow;
 function createWindow() {
@@ -18,6 +19,39 @@ function createWindow() {
     mainWindow.loadURL(`file://${__dirname}/dom/index.html`);
     mainWindow.on("closed", function() {
         mainWindow = null;
+    });
+
+
+    ipcMain.on("system.shutdown", function() {
+        if (process.platform == "win32") {
+            dialog.showMessageBox(mainWindow, {
+                message: "System has shutdown",
+                title: "System",
+                buttons: ["ok"]
+            })
+        } else if (process.platform == "linux") {
+            child_process.exec("sudo shutdown +0", (error, stdout, stderr) => {
+                if (error) throw error;
+                if (stderr) throw stderr;
+                console.log(stdout);
+            });
+        }
+    });
+
+    ipcMain.on("system.restart", function() {
+        if (process.platform == "win32") {
+            dialog.showMessageBox(mainWindow, {
+                message: "System has reboot",
+                title: "System",
+                buttons: ["ok"]
+            })
+        } else if (process.platform == "linux") {
+            child_process.exec("sudo reboot", (error, stdout, stderr) => {
+                if (error) throw error;
+                if (stderr) throw stderr;
+                console.log(stdout);
+            });
+        }
     });
 }
 
